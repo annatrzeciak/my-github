@@ -55,8 +55,23 @@ module.exports = {
       callback: "/search",
     },
   },
-  axios: {
-    baseURL: "https://api.github.com/graphql",
-    credentials: true,
-  },
+  buildModules: [
+    [
+      "nuxt-fontawesome",
+      {
+        component: "fa", //customize component name
+        imports: [
+          {
+            set: "@fortawesome/free-solid-svg-icons",
+            icons: ["faAngleDown", "faCalendarPlus", "faUserTie"],
+          },
+          { set: "@fortawesome/free-brands-svg-icons", icons: ["faGithub"] },
+          {
+            set: "@fortawesome/free-regular-svg-icons",
+            icons: ["faLightbulb"],
+          },
+        ],
+      },
+    ],
+  ],
 }

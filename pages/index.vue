@@ -1,6 +1,6 @@
 <template>
-  <section class="page container">
-    <h1 class="page__title main-page">Welcome to the my github app</h1>
+  <section class="page main-page container">
+    <h1 class="page__title">Welcome to the my github app</h1>
     <div class="row row--content-centered-vertical">
       <div class="row__item">
         <img class="main-page__image" src="/work.jpg" alt="" />

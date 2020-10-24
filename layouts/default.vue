@@ -41,6 +41,10 @@ html {
   align-items: center;
 }
 
+.row--content-centered-horizontal {
+  justify-content: center;
+}
+
 .row__item {
   height: 100%;
   width: 100%;
