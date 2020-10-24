@@ -14,7 +14,7 @@ module.exports = {
   /*
    ** Customize the progress bar color
    */
-  loading: { color: "#3B8070" },
+  loading: "~/components/Loading.vue",
   /*
    ** Build configuration
    */
@@ -46,8 +46,17 @@ module.exports = {
         authorization_endpoint: "https://github.com/login/oauth/authorize",
         token_endpoint: "https://github.com/login/oauth/access_token",
         userinfo_endpoint: "https://api.github.com/user",
+        redirect_uri: "http://localhost:3000/search",
         scope: ["user", "email", "repo:status"],
       },
     },
+    redirect: {
+      login: "/",
+      callback: "/search",
+    },
+  },
+  axios: {
+    baseURL: "https://api.github.com/graphql",
+    credentials: true,
   },
 }
