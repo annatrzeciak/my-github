@@ -25,21 +25,34 @@ export default {
   padding: 8px 12px;
   font-size: 14px;
   background: rgba(17, 18, 18, 0.15);
+  border: 1px solid rgba(17, 18, 18, 0.15);
   border-radius: 2px;
-  border: none;
   color: #c6cdcf;
   font-weight: bold;
   margin-top: 15px;
   margin-bottom: 15px;
   cursor: pointer;
 }
-.button:hover {
+.button:not(:disabled):hover {
   background: rgba(17, 18, 18, 0.3);
 }
+
 .button--blue {
   background: #257192;
+  border-color: #257192;
 }
-.button--blue:hover {
+
+.button--blue:not(:disabled):hover {
   background: #287ea4;
+  border-color: #287ea4;
+}
+.button:focus {
+  outline: none;
+  border-color: #c6cdcf !important;
+}
+
+.button:disabled {
+  cursor: auto;
+  opacity: 0.5;
 }
 </style>
