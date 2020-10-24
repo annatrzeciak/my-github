@@ -1,5 +1,5 @@
 <template>
-  <div v-if="loading" class="loading">
+  <div :class="['loading', { 'loading--visible': loading }]">
     <div class="loading__spinner">
       <svg
         viewBox="0 0 38 38"
@@ -53,18 +53,27 @@ export default {
 
 <style scoped>
 .loading {
+  z-index: -1;
   height: 100vh;
   width: 100vw;
   position: fixed;
   top: 0;
   background: #34393e;
-  opacity: 0.95;
+  opacity: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-weight: bold;
+  transition: opacity 0.3s, z-index 0s 0.3s;
 }
+
+.loading--visible {
+  opacity: 0.95;
+  z-index: 200;
+  transition: opacity 0.3s;
+}
+
 .loading__spinner svg {
   stroke: #257192;
   margin-bottom: 16px;
