@@ -7,6 +7,7 @@
       </div>
       <div class="row__item row__item--content-to-right main-page__details">
         <LoginForm v-if="!loggedInUser" />
+        <LoggedUserDetails v-else />
       </div>
     </div>
   </section>
@@ -15,8 +16,9 @@
 <script>
 import { mapGetters } from "vuex"
 import LoginForm from "../components/LoginForm"
+import LoggedUserDetails from "../components/LoggedUserDetails"
 export default {
-  components: { LoginForm },
+  components: { LoggedUserDetails, LoginForm },
   computed: {
     ...mapGetters(["loggedInUser"]),
   },
