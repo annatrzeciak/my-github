@@ -17,7 +17,7 @@
     </div>
     <div v-if="opened" class="project__content">
       <Loading v-if="loading" ref="loading" :inside-element="true" />
-      <div v-else>{{ details }}</div>
+      <div v-else><ProjectItemDetails :details="details" /></div>
     </div>
   </div>
 </template>
@@ -25,9 +25,10 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import Loading from "./Loading"
+import ProjectItemDetails from "./ProjectItemDetails"
 export default {
   name: "ProjectItem",
-  components: { Loading },
+  components: { ProjectItemDetails, Loading },
   props: { project: { type: Object, default: () => {} } },
   data: () => ({ opened: false, loading: false }),
 
@@ -65,12 +66,19 @@ export default {
       } else {
         this.opened = true
         this.loading = true
+
+        // to fix problem with this.ref.loading which returned undefined
+        // https://stackoverflow.com/a/51080933
         this.$nextTick(function () {
           this.$refs.loading.start()
         })
 
-        await this.getProjectDetails({ name: this.name, owner: this.owner })
-        this.$refs.loading.finish()
+        if (!this.details)
+          await this.getProjectDetails({ name: this.name, owner: this.owner })
+        this.$nextTick(function () {
+          this.$refs.loading.finish()
+        })
+
         // for fade
         setTimeout(() => {
           this.loading = false
