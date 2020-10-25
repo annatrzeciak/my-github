@@ -37,12 +37,10 @@ export const mutations = {
     const master = data.repository.refs.edges.find(
       (branch) => branch.node.name === "master"
     )
-    state.projectsDetails = {
-      [data.repository.id]: {
-        url: data.repository.url,
-        description: data.repository.description,
-        commits: master.node.target.history.nodes,
-      },
+    state.projectsDetails[data.repository.id] = {
+      url: data.repository.url,
+      description: data.repository.description,
+      commits: master.node.target.history.nodes,
     }
   },
 }
