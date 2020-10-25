@@ -86,11 +86,12 @@ export default {
   padding: 8px;
   cursor: pointer;
 }
-.projects__item:nth-of-type(2n + 1) {
+.projects__item:not(.projects__item--opened):nth-of-type(2n + 1) {
   background: rgba(40, 44, 48, 0.3);
 }
 .projects__item--opened {
   background: #282c30;
+  border-bottom: 1px solid #287ea4;
 }
 .project__header {
   display: flex;
