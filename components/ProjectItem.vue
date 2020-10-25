@@ -110,9 +110,14 @@ export default {
   align-items: center;
   font-size: 16px;
   overflow: hidden;
+  min-height: 32px;
 }
 svg {
   margin-right: 8px;
+  transition: 0.3s ease-in-out;
+}
+.projects__item--opened svg.fa-angle-down {
+  transform: rotateX(180deg);
 }
 .header__name {
   font-weight: bold;

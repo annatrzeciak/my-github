@@ -6,7 +6,7 @@
       size ? 'button--' + size : '',
     ]"
     :disabled="disabled"
-    @click="$emit('clicked')"
+    @click.stop="$emit('clicked')"
   >
     {{ text }}
   </button>

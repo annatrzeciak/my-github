@@ -77,4 +77,12 @@ html {
     font-size: 26px;
   }
 }
+
+a {
+  color: #c6cdcf;
+}
+a:visited,
+a:hover {
+  color: #257192;
+}
 </style>

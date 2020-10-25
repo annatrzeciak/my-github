@@ -7,21 +7,41 @@
           class="details__info details__description"
         >
           <fa :icon="['fas', 'info']" />
-          {{ details.description }}
+          <span class="detail__value">
+            {{ details.description }}
+          </span>
         </div>
       </div>
       <div v-if="details.url" class="details__info details__url">
-        <fa :icon="['fas', 'clone']" /><span class="url__value">{{
-          details.url
-        }}</span>
-        <Button :buttonType="'blue'" :text="'Copy url'" :size="'small'" />
+        <fa :icon="['fas', 'clone']" />
+        <span class="url__value">
+          <input
+            :value="details.url"
+            :id="'input-details-' + details.id"
+            class="hidden-input"
+            type="text"
+          />
+          <a
+            :href="details.url"
+            title="Open project repository"
+            target="_blank"
+          >
+            {{ details.url }}
+          </a>
+        </span>
+        <Button
+          :buttonType="'blue'"
+          :text="copyButtonText"
+          :size="'small'"
+          @clicked="copyUrl"
+        />
       </div>
       <div
         v-if="details.defaultBranch"
         class="details__info details__default-branch"
       >
-        <fa :icon="['fas', 'code-branch']" />default branch:
-        {{ details.defaultBranch }}
+        <fa :icon="['fas', 'code-branch']" />
+        default branch: {{ details.defaultBranch }}
       </div>
       <div v-if="details.commits" class="details__info details__commits">
         <fa :icon="['fab', 'elementor']" />Last commits:
@@ -52,6 +72,9 @@ export default {
   name: "ProjectItemDetails",
   components: { Button },
   props: { details: { type: Object, default: () => {} } },
+  data: () => ({
+    copyButtonText: "Copy url",
+  }),
   computed: {
     commits() {
       if (
@@ -64,19 +87,39 @@ export default {
       return []
     },
   },
+  methods: {
+    copyUrl() {
+      const copyText = document.getElementById(
+        "input-details-" + this.details.id
+      )
+      copyText.select()
+      copyText.setSelectionRange(0, 99999)
+
+      document.execCommand("copy")
+      this.copyButtonText = "Copied!"
+    },
+  },
 }
 </script>
 
 <style scoped>
+.hidden-input {
+  opacity: 0;
+  position: absolute;
+}
 .details {
-  margin-top: 15px;
-  margin-bottom: 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-top: 1px solid #40454a;
 }
 .detail--empty {
   text-align: center;
 }
 .details__info {
-  margin-bottom: 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  padding-top: 4px;
+  padding-bottom: 4px;
   min-height: 24px;
 }
 .details__commits {
@@ -94,6 +137,9 @@ export default {
 }
 .commit__message {
   flex: 3;
+  margin-right: 8px;
+}
+a {
   margin-right: 8px;
 }
 svg {
