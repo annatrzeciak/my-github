@@ -130,6 +130,9 @@ svg {
   .header__name {
     min-width: 100%;
   }
+  svg {
+    width: 36px !important;
+  }
 }
 @media (max-width: 500px) {
   .header__created,

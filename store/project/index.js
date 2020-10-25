@@ -46,7 +46,12 @@ export const mutations = {
     if (!master) {
       firstBranch = data.repository.refs.edges[0]
     }
-    const commits = master ? master.node.target.history.nodes : firstBranch
+    const commits = master
+      ? master.node.target.history.nodes
+      : firstBranch.node.target.history.nodes
+    const defaultBranch = master
+      ? "master"
+      : data.repository.refs.edges[0].node.name
 
     state.projectsDetails = {
       ...state.projectsDetails,
@@ -54,6 +59,7 @@ export const mutations = {
         url: data.repository.url,
         description: data.repository.description,
         commits: commits,
+        defaultBranch,
       },
     }
   },

@@ -63,13 +63,16 @@ module.exports = {
         imports: [
           {
             set: "@fortawesome/free-solid-svg-icons",
-            icons: ["faAngleDown", "faCalendarPlus", "faUserTie"],
+            icons: [
+              "faAngleDown",
+              "faCalendarPlus",
+              "faUserTie",
+              "faInfo",
+              "faClone",
+              "faCodeBranch",
+            ],
           },
-          { set: "@fortawesome/free-brands-svg-icons", icons: ["faGithub"] },
-          {
-            set: "@fortawesome/free-regular-svg-icons",
-            icons: ["faLightbulb"],
-          },
+          { set: "@fortawesome/free-brands-svg-icons", icons: ["faElementor"] },
         ],
       },
     ],

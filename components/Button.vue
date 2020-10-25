@@ -1,6 +1,10 @@
 <template>
   <button
-    :class="['button', buttonType ? 'button--' + buttonType : '']"
+    :class="[
+      'button',
+      buttonType ? 'button--' + buttonType : '',
+      size ? 'button--' + size : '',
+    ]"
     :disabled="disabled"
     @click="$emit('clicked')"
   >
@@ -15,6 +19,7 @@ export default {
     buttonType: { type: String, default: "" },
     text: { type: String, required: true },
     disabled: { type: Boolean, default: false },
+    size: { type: String, default: "" },
   },
 }
 </script>
@@ -32,6 +37,10 @@ export default {
   margin-top: 15px;
   margin-bottom: 15px;
   cursor: pointer;
+}
+.button--small {
+  padding: 3px 8px;
+  margin: 0;
 }
 .button:not(:disabled):hover {
   background: rgba(17, 18, 18, 0.3);
