@@ -1,4 +1,7 @@
 module.exports = {
+  server: {
+    port: 9876,
+  },
   /*
    ** Headers of the page
    */
@@ -46,7 +49,7 @@ module.exports = {
         authorization_endpoint: "https://github.com/login/oauth/authorize",
         token_endpoint: "https://github.com/login/oauth/access_token",
         userinfo_endpoint: "https://api.github.com/user",
-        redirect_uri: "http://localhost:3000/search",
+        redirect_uri: "http://localhost:9876",
         scope: ["user", "email", "repo:status"],
       },
     },

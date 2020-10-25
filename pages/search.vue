@@ -17,7 +17,7 @@ import ProjectsList from "../components/ProjectsList"
 export default {
   name: "Search",
   components: { ProjectsList, SearchForm },
-  middleware: "auth",
+  middleware: "authenticated",
   data: () => ({
     searchValue: "",
   }),
