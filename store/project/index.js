@@ -4,12 +4,14 @@ export const constans = {
   SET_SEARCH: "SET_SEARCH",
   ADD_FOUND_PROJECTS: "ADD_FOUND_PROJECTS",
   ADD_DETAILS: "ADD_DETAILS",
+  SET_TOTAL_COUNT: "SET_TOTAL_COUNT",
 }
 
 export const state = () => ({
   searchValue: "",
   projects: [],
   projectsDetails: [],
+  totalProjectsCount: "",
 })
 
 export const getters = {
@@ -21,6 +23,9 @@ export const getters = {
   },
   projectsDetails(state) {
     return state.projectsDetails
+  },
+  totalProjectsCount(state) {
+    return state.totalProjectsCount
   },
 }
 
@@ -52,14 +57,22 @@ export const mutations = {
       },
     }
   },
+  [constans.SET_TOTAL_COUNT](state, data) {
+    state.totalProjectsCount = data
+  },
 }
 
 export const actions = {
   async searchProjects({ commit }, search) {
     return Project.searchProjects(search)
       .then((response) => {
+        console.log(response.data.data)
         commit(constans.SET_SEARCH, search)
         commit(constans.ADD_FOUND_PROJECTS, response.data.data.search.edges)
+        commit(
+          constans.SET_TOTAL_COUNT,
+          String(response.data.data.search.repositoryCount)
+        )
         return Promise.resolve(response.data.data)
       })
       .catch((err) => Promise.reject(err))
