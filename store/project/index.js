@@ -85,4 +85,13 @@ export const actions = {
       })
       .catch((err) => Promise.reject(err))
   },
+
+  clearBeforeFoundProjects({ commit, getters }) {
+    if (getters.totalProjectsCount !== "") {
+      console.log("clear")
+      commit(constans.SET_SEARCH, "")
+      commit(constans.ADD_FOUND_PROJECTS, [])
+      commit(constans.SET_TOTAL_COUNT, "")
+    }
+  },
 }

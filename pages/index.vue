@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 import LoginForm from "../components/LoginForm"
 import LoggedUserDetails from "../components/LoggedUserDetails"
 export default {
@@ -22,7 +22,12 @@ export default {
   computed: {
     ...mapGetters(["loggedInUser"]),
   },
-  methods: {},
+  mounted() {
+    this.clearBeforeFoundProjects()
+  },
+  methods: {
+    ...mapActions("project", ["clearBeforeFoundProjects"]),
+  },
 }
 </script>
 

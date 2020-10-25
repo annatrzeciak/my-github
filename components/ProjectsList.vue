@@ -1,6 +1,9 @@
 <template>
   <div class="projects">
-    <h3 v-if="totalProjectsCount" class="projects__main-info">
+    <h3
+      v-if="showTotalCountInfo && totalProjectsCount"
+      class="projects__main-info"
+    >
       Found {{ totalProjectsCount }} projects
     </h3>
     <div v-if="projects.length" class="projects__content">
@@ -12,7 +15,7 @@
     </div>
     <!-- Show only when user tried find something-->
     <div
-      v-else-if="!projects.length && totalProjectsCount !== ''"
+      v-else-if="!projects.length && showTotalCountInfo"
       class="projects__content--empty"
     >
       no data to show
@@ -26,9 +29,14 @@ import ProjectItem from "./ProjectItem"
 export default {
   name: "ProjectsList",
   components: { ProjectItem },
-  props: { projects: { type: Array, default: () => [] } },
+  props: {
+    projects: { type: Array, default: () => [] },
+  },
   computed: {
-    ...mapGetters("project", ["totalProjectsCount"]),
+    ...mapGetters("project", ["totalProjectsCount", "searchedValue"]),
+    showTotalCountInfo() {
+      return this.searchedValue !== ""
+    },
   },
 }
 </script>
