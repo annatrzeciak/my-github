@@ -45,3 +45,5 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 ## Project description / requirements
 
 see (only in Polish): [ZadanieTestowe-Frontend.pdf](static/ZadanieTestowe-Frontend.pdf)
+
+![my-github demo](static/my-github.gif)
