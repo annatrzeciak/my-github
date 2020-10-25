@@ -34,7 +34,16 @@ export const mutations = {
   },
 
   [constans.ADD_DETAILS](state, data) {
-    state.projectsDetails = { [data.id]: data }
+    const master = data.repository.refs.edges.find(
+      (branch) => branch.node.name === "master"
+    )
+    state.projectsDetails = {
+      [data.repository.id]: {
+        url: data.repository.url,
+        description: data.repository.description,
+        commits: master.node.target.history.nodes,
+      },
+    }
   },
 }
 
@@ -44,6 +53,14 @@ export const actions = {
       .then((response) => {
         commit(constans.SET_SEARCH, search)
         commit(constans.ADD_FOUND_PROJECTS, response.data.data.search.edges)
+        return Promise.resolve(response.data.data)
+      })
+      .catch((err) => Promise.reject(err))
+  },
+  async getProjectDetails({ commit }, { name, owner }) {
+    return Project.getDetails(name, owner)
+      .then((response) => {
+        commit(constans.ADD_DETAILS, response.data.data)
         return Promise.resolve(response.data.data)
       })
       .catch((err) => Promise.reject(err))

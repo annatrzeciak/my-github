@@ -1,12 +1,10 @@
 <template>
-  <div class="projects">
-    <div v-if="projects">
-      <ProjectItem
-        v-for="project in projects"
-        :project="project"
-        :key="project.id"
-      />
-    </div>
+  <div v-if="projects.length" class="projects">
+    <ProjectItem
+      v-for="project in projects"
+      :project="project"
+      :key="project.id"
+    />
   </div>
 </template>
 

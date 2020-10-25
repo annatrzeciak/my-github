@@ -1,5 +1,8 @@
 <template>
-  <div :class="['projects__item', { 'projects__item--opened': opened }]">
+  <div
+    :class="['projects__item', { 'projects__item--opened': opened }]"
+    @click="toggleItem"
+  >
     <div class="project__header">
       <div :title="'Project name'" class="header__info header__name">
         <fa :icon="['fas', 'angle-down']" />{{ name }}
@@ -12,16 +15,24 @@
         {{ owner }}
       </div>
     </div>
+    <div v-if="opened" class="project__content">
+      <Loading v-if="loading" ref="loading" :inside-element="true" />
+      <div v-else>{{ details }}</div>
+    </div>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex"
+import Loading from "./Loading"
 export default {
   name: "ProjectItem",
+  components: { Loading },
   props: { project: { type: Object, default: () => {} } },
-  data: () => ({ opened: false }),
+  data: () => ({ opened: false, loading: false }),
 
   computed: {
+    ...mapGetters("project", ["projectsDetails"]),
     name() {
       if (this.project) {
         return this.project.node.name
@@ -39,6 +50,32 @@ export default {
         return this.project.node.owner.login
       }
       return ""
+    },
+    details() {
+      if (this.projectsDetails && this.projectsDetails[this.project.node.id])
+        return this.projectsDetails[this.project.node.id]
+      return null
+    },
+  },
+  methods: {
+    ...mapActions("project", ["getProjectDetails"]),
+    async toggleItem() {
+      if (this.opened) {
+        this.opened = false
+      } else {
+        this.opened = true
+        this.loading = true
+        this.$nextTick(function () {
+          this.$refs.loading.start()
+        })
+
+        await this.getProjectDetails({ name: this.name, owner: this.owner })
+        this.$refs.loading.finish()
+        // for fade
+        setTimeout(() => {
+          this.loading = false
+        }, 800)
+      }
     },
   },
 }

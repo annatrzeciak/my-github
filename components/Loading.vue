@@ -1,5 +1,11 @@
 <template>
-  <div :class="['loading', { 'loading--visible': loading }]">
+  <div
+    :class="[
+      'loading',
+      { 'loading--visible': loading },
+      { 'loading--inside-element': insideElement },
+    ]"
+  >
     <div class="loading__spinner">
       <svg
         viewBox="0 0 38 38"
@@ -35,6 +41,9 @@
 <script>
 export default {
   name: "Loading",
+  props: {
+    insideElement: { type: Boolean, default: false },
+  },
   data: () => ({
     loading: false,
   }),
@@ -67,7 +76,14 @@ export default {
   font-weight: bold;
   transition: opacity 0.3s, z-index 0s 0.3s;
 }
-
+.loading--inside-element {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 .loading--visible {
   opacity: 0.95;
   z-index: 200;

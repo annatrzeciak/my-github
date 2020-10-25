@@ -43,3 +43,38 @@ export async function searchProjects(search) {
       `,
   })
 }
+export async function getDetails(name, owner) {
+  return await apiClient.post("", {
+    query: `{
+  repository(name: "${name}", owner: "${owner}") {
+    refs(orderBy: {direction: DESC, field: TAG_COMMIT_DATE}, first: 100, refPrefix: "refs/heads/") {
+      edges {
+        node {
+          name
+          target {
+            ... on Commit {
+              history(first: 10) {
+                nodes {
+                  message
+                  committedDate
+                  authoredDate
+                  oid
+                  author {
+                    email
+                    name
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      totalCount
+    }
+    id
+    description
+    url
+  }
+      }`,
+  })
+}
