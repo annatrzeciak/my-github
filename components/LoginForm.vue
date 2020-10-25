@@ -28,6 +28,7 @@ export default {
       try {
         await this.$auth.loginWith("github")
       } catch (e) {
+        console.error(e)
         //TODO: show message about error
         this.$router.push("/")
       }

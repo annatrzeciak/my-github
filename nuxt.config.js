@@ -1,7 +1,4 @@
 module.exports = {
-  server: {
-    port: 9876,
-  },
   /*
    ** Headers of the page
    */
@@ -42,14 +39,14 @@ module.exports = {
   auth: {
     strategies: {
       github: {
+        _scheme: "oauth2",
         client_id: "844cfbebea1515df2ca3",
         // In real app secret key should be invisible (for example in env file)
-        client_secret: "108d03dc33de2d33842ec1b2bb43f31c0fd5d7a8",
-        _scheme: "oauth2",
+        client_secret: "8e7e2b98aec8eb5e9448dd7f3daa6c995f40410d",
         authorization_endpoint: "https://github.com/login/oauth/authorize",
         token_endpoint: "https://github.com/login/oauth/access_token",
         userinfo_endpoint: "https://api.github.com/user",
-        redirect_uri: "http://localhost:9876",
+        redirect_uri: "http://localhost:3000/search",
         scope: ["user", "email", "repo:status"],
       },
     },
@@ -62,7 +59,7 @@ module.exports = {
     [
       "nuxt-fontawesome",
       {
-        component: "fa", //customize component name
+        component: "fa",
         imports: [
           {
             set: "@fortawesome/free-solid-svg-icons",

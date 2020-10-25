@@ -11,8 +11,9 @@ module.exports = {
     "eslint:recommended",
     "plugin:vue/recommended",
     "plugin:prettier/recommended",
+    "plugin:cypress/recommended",
   ],
-  plugins: ["vue"],
+  plugins: ["vue", "cypress"],
   rules: {
     semi: [2, "never"],
     "no-console": "off",
