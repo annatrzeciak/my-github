@@ -1,5 +1,5 @@
-export default function ({ store, redirect }) {
-  if (!store.state.auth.loggedIn) {
+export default function ({ store, route, redirect }) {
+  if (!route.query.code && !store.state.auth.loggedIn) {
     return redirect("/")
   }
 }

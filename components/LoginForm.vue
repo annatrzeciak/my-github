@@ -26,11 +26,17 @@ export default {
   methods: {
     async authorize() {
       try {
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+        })
         await this.$auth.loginWith("github")
       } catch (e) {
+        //TODO: correct styles
+        alert(e.message)
         console.error(e)
-        //TODO: show message about error
-        this.$router.push("/")
+        this.$nextTick(() => {
+          this.$nuxt.$loading.finish()
+        })
       }
     },
   },

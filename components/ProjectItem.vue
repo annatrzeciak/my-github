@@ -53,9 +53,18 @@ export default {
       return ""
     },
     details() {
-      if (this.projectsDetails && this.projectsDetails[this.project.node.id])
+      if (
+        this.project &&
+        this.projectsDetails &&
+        this.projectsDetails[this.project.node.id]
+      )
         return this.projectsDetails[this.project.node.id]
       return null
+    },
+  },
+  watch: {
+    name() {
+      this.opened = false
     },
   },
   methods: {
@@ -79,7 +88,7 @@ export default {
           this.$refs.loading.finish()
         })
 
-        // for fade
+        // for 'better' fade
         setTimeout(() => {
           this.loading = false
         }, 800)

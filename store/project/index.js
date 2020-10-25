@@ -39,26 +39,29 @@ export const mutations = {
   },
 
   [constans.ADD_DETAILS](state, data) {
-    const master = data.repository.refs.edges.find(
-      (branch) => branch.node.name === "master"
-    )
-    let firstBranch = null
-    if (!master) {
-      firstBranch = data.repository.refs.edges[0]
-    }
-    const commits = master
-      ? master.node.target.history.nodes
-      : firstBranch.node.target.history.nodes
-    const defaultBranch = master
-      ? "master"
-      : data.repository.refs.edges[0].node.name
+    const containsBranches = Boolean(data.repository.refs.edges.length)
+    let commits
+    let defaultBranch
+    if (containsBranches) {
+      const master = data.repository.refs.edges.find(
+        (branch) => branch.node.name === "master"
+      )
+      let firstBranch
+      if (!master) {
+        firstBranch = data.repository.refs.edges[0]
+      }
+      commits = master
+        ? master.node.target.history.nodes
+        : firstBranch.node.target.history.nodes
 
+      defaultBranch = master ? "master" : firstBranch.node.name
+    }
     state.projectsDetails = {
       ...state.projectsDetails,
       [data.repository.id]: {
         url: data.repository.url,
         description: data.repository.description,
-        commits: commits,
+        commits,
         defaultBranch,
       },
     }
@@ -72,7 +75,6 @@ export const actions = {
   async searchProjects({ commit }, search) {
     return Project.searchProjects(search)
       .then((response) => {
-        console.log(response.data.data)
         commit(constans.SET_SEARCH, search)
         commit(constans.ADD_FOUND_PROJECTS, response.data.data.search.edges)
         commit(

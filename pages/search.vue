@@ -23,10 +23,14 @@ export default {
   }),
   computed: { ...mapGetters("project", ["projects"]) },
   created() {
-    // remove queries which were set during redirect after auth
     if (this.$route.query) {
-      if (this.$route.query.searchValue)
+      if (this.$route.query.searchValue) {
+        this.$nextTick(() => {
+          this.$nuxt.$loading.start()
+        })
+
         this.searchValue = this.$route.query.searchValue
+      }
       this.$router.push({ query: {} })
     }
   },

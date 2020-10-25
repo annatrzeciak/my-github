@@ -43,15 +43,20 @@ export default {
         this.$router.push(`/search?searchValue=${this.search}`)
       else this.getProjectsWithContains()
     },
-    getProjectsWithContains() {
-      this.$nuxt.$loading.start()
-      this.searchProjects(this.search)
+    async getProjectsWithContains() {
+      this.$nextTick(() => {
+        this.$nuxt.$loading.start()
+      })
+      await this.searchProjects(this.search)
         .catch((e) => {
-          //TODO show errors
+          //TODO add errors style
+          alert(e.message)
           console.error(e)
         })
         .finally(() => {
-          this.$nuxt.$loading.finish()
+          this.$nextTick(() => {
+            this.$nuxt.$loading.finish()
+          })
         })
     },
   },
