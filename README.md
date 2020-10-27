@@ -32,15 +32,16 @@ Go to page http://localhost:3000/ (default)
     npm run test
     ```
 ### Build for production and launch server
-$ npm run build
-$ npm start
-
+```
+npm run build
+npm start
+```
 ### generate static project
-$ npm run generate
 ```
-
+npm run generate
+```
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
-```
+
 
 ## Project description / requirements
 
